@@ -21,6 +21,8 @@ skip-check:
   # --- API Gateway: sin registro de acceso (NFR4.2), sin WAF ni cache en el MVP; autenticacion en el servicio (C3) ---
   - CKV_AWS_76 # Sin registro de acceso de la pasarela (NFR4.2)
   - CKV_AWS_73 # Sin X-Ray en la pasarela
+  - CKV_AWS_225 # Sin cache de metodos: no hay respuestas reutilizables
+  - CKV_AWS_237 # La API la reemplaza el despliegue con create_before_destroy en el recurso de despliegue; la API REST en si no se recrea
   - CKV_AWS_120 # Sin cache de la pasarela: no hay respuestas reutilizables
   - CKV_AWS_59 # La credencial de sesion la verifica el servicio (C3), no la pasarela
   - CKV2_AWS_29 # Sin WAF: el limite de uso de la pasarela acota el abuso con 5 personas (NFR3.1)
@@ -32,6 +34,7 @@ skip-check:
   - CKV_AWS_68 # Sin WAF en la distribucion
   - CKV_AWS_310 # Sin origen de respaldo: un solo deposito
   - CKV_AWS_374 # Sin restriccion geografica: uso desde cualquier pais
+  - CKV_AWS_174 # Sin dominio propio CloudFront no permite fijar TLS 1.2 como minimo (riesgo aceptado del MVP)
   - CKV2_AWS_42 # Certificado por defecto de CloudFront (sin dominio propio en el MVP)
   - CKV2_AWS_47 # Sin WAF en la distribucion
   # --- S3: sin registro de acceso (NFR4.2), sin replicacion ni claves KMS propias ---
