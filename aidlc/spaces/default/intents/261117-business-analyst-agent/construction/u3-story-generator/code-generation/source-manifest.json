@@ -1,0 +1,32 @@
+{
+  "stage": "code-generation",
+  "unit": "u3-story-generator",
+  "version": 1,
+  "writes": [
+    { "path": "backend/.env.example" },
+    { "path": "backend/story_service/config.py" },
+    { "path": "backend/story_service/errors.py" },
+    { "path": "backend/story_service/fakes.py" },
+    { "path": "backend/story_service/handler.py" },
+    { "path": "backend/story_service/input_validation.py" },
+    { "path": "backend/story_service/local_run.py" },
+    { "path": "backend/story_service/logging_utils.py" },
+    { "path": "backend/story_service/markdown_builder.py" },
+    { "path": "backend/story_service/models.py" },
+    { "path": "backend/story_service/prompt.py" },
+    { "path": "backend/story_service/response_parsing.py" },
+    { "path": "backend/story_service/service.py" },
+    { "path": "backend/tests/helpers.py" },
+    { "path": "backend/tests/test_handler.py" },
+    { "path": "backend/tests/test_input_validation.py" },
+    { "path": "backend/tests/test_local_run.py" },
+    { "path": "backend/tests/test_logging.py" },
+    { "path": "backend/tests/test_markdown_builder.py" },
+    { "path": "backend/tests/test_models_errors.py" },
+    { "path": "backend/tests/test_prompt.py" },
+    { "path": "backend/tests/test_response_parsing.py" },
+    { "path": "backend/tests/test_service.py" },
+    { "path": "backend/tests/test_story_generation.py" },
+    { "path": "docs/titulos-prueba-nfr2.md" }
+  ]
+}

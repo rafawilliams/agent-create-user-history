@@ -1,0 +1,128 @@
+{
+  "stage": "code-generation",
+  "unit": "u6-infrastructure",
+  "upstream_ids": [
+    "AC6.1.1",
+    "AC6.1.2",
+    "AC6.1.3",
+    "AC7.1.1",
+    "AC7.1.2",
+    "AC7.1.3",
+    "NFR5.1",
+    "NFR5.2",
+    "NFR5.7",
+    "NFR5.3",
+    "NFR5.4",
+    "NFR5.5",
+    "NFR4.2",
+    "NFR5.6",
+    "NFR5.8",
+    "NFR5.9",
+    "NFR4.1",
+    "NFR4.3",
+    "NFR3.1",
+    "NFR1.1"
+  ],
+  "coverage": [
+    {
+      "id": "AC6.1.1",
+      "status": "OK",
+      "target": "infra/cognito.tf"
+    },
+    {
+      "id": "AC6.1.2",
+      "status": "OK",
+      "target": "infra/tests/api.tftest.hcl"
+    },
+    {
+      "id": "AC6.1.3",
+      "status": "OK",
+      "target": "infra/tests/app.tftest.hcl"
+    },
+    {
+      "id": "AC7.1.1",
+      "status": "N/A",
+      "target": "La evaluacion de Titan y Claude Sonnet es de u2 (backend/story_service/evaluate_models.py); u6 solo concede el permiso de invocacion del modelo configurado en infra/iam.tf"
+    },
+    {
+      "id": "AC7.1.2",
+      "status": "N/A",
+      "target": "El registro de la evaluacion y la decision son de u2 (docs/titulos-evaluacion.md y evaluate_models.py); u6 no los produce"
+    },
+    {
+      "id": "AC7.1.3",
+      "status": "N/A",
+      "target": "El registro del bloqueo por modelo no habilitado es de u2 (evaluate_models.py); el acceso al modelo en la cuenta se confirma a mano en infra/README.md"
+    },
+    {
+      "id": "NFR5.1",
+      "status": "OK",
+      "target": "infra/scripts/check_secrets.py"
+    },
+    {
+      "id": "NFR5.2",
+      "status": "OK",
+      "target": "infra/bootstrap/tests/roles.tftest.hcl"
+    },
+    {
+      "id": "NFR5.7",
+      "status": "OK",
+      "target": "infra/scripts/check_pins.py"
+    },
+    {
+      "id": "NFR5.3",
+      "status": "OK",
+      "target": "infra/bootstrap/main.tf"
+    },
+    {
+      "id": "NFR5.4",
+      "status": "OK",
+      "target": "infra/bootstrap/tests/roles.tftest.hcl"
+    },
+    {
+      "id": "NFR5.5",
+      "status": "OK",
+      "target": "infra/iam.tf"
+    },
+    {
+      "id": "NFR4.2",
+      "status": "OK",
+      "target": "infra/scripts/check_plan.py"
+    },
+    {
+      "id": "NFR5.6",
+      "status": "OK",
+      "target": "infra/bootstrap/tests/state_bucket.tftest.hcl"
+    },
+    {
+      "id": "NFR5.8",
+      "status": "OK",
+      "target": "infra/tests/app.tftest.hcl"
+    },
+    {
+      "id": "NFR5.9",
+      "status": "OK",
+      "target": "infra/web_headers.tf"
+    },
+    {
+      "id": "NFR4.1",
+      "status": "OK",
+      "target": "infra/scripts/check_plan.py"
+    },
+    {
+      "id": "NFR4.3",
+      "status": "OK",
+      "target": "infra/tests/variables.tftest.hcl"
+    },
+    {
+      "id": "NFR3.1",
+      "status": "OK",
+      "target": "infra/tests/api.tftest.hcl"
+    },
+    {
+      "id": "NFR1.1",
+      "status": "OK",
+      "target": "infra/api_session.tf"
+    }
+  ]
+}

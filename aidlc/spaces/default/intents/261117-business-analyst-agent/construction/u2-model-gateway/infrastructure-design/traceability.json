@@ -1,0 +1,20 @@
+{
+  "stage": "infrastructure-design",
+  "unit": "u2-model-gateway",
+  "upstream_ids": ["NFR4.1", "NFR4.2", "NFR4.3", "NFR5.1", "NFR5.2", "NFR5.3", "NFR1.2", "NFR1.4", "NFR1.1", "NFR1.3", "NFR2.1", "NFR8.1", "NFR8.4"],
+  "coverage": [
+    { "id": "NFR4.1", "status": "OK", "target": "cicd-pipeline.md: sin infraestructura propia ni datos; el unico archivo es docs/evaluacion-modelos.md, versionado en Git" },
+    { "id": "NFR4.2", "status": "OK", "target": "cicd-pipeline.md: prueba de captura de todos los registros con un ARN en CI; u6 verifica el registro de invocaciones desactivado" },
+    { "id": "NFR4.3", "status": "OK", "target": "cicd-pipeline.md: prueba en CI de que el comando se niega sin 5 titulos con huella valida" },
+    { "id": "NFR5.1", "status": "OK", "target": "cicd-pipeline.md: busqueda de patrones de claves de AWS en la etapa de seguridad de CI" },
+    { "id": "NFR5.2", "status": "OK", "target": "cicd-pipeline.md: lista de modelos y forma del permiso entregadas a u6-infrastructure, que las verifica" },
+    { "id": "NFR5.3", "status": "OK", "target": "cicd-pipeline.md: pruebas de identificadores no soportados en la etapa 2; la prueba de humo de u6 detecta un valor invalido desplegado" },
+    { "id": "NFR1.2", "status": "N/A", "target": "Los tiempos de conexion y lectura son configuracion del cliente en el codigo; u2 no agrega recursos de infraestructura" },
+    { "id": "NFR1.4", "status": "OK", "target": "cicd-pipeline.md: prueba en la etapa 2 de un solo intento y cero reintentos del cliente" },
+    { "id": "NFR1.1", "status": "OK", "target": "cicd-pipeline.md: prueba en la etapa 2 del tiempo pedido con fracciones y tolerancia de 1 s" },
+    { "id": "NFR1.3", "status": "OK", "target": "cicd-pipeline.md: prueba en la etapa 2 del comando de evaluacion con modelos simulados; el comando real se ejecuta a mano" },
+    { "id": "NFR2.1", "status": "OK", "target": "cicd-pipeline.md: prueba en la etapa 2 de la puntuacion con modelos simulados" },
+    { "id": "NFR8.1", "status": "OK", "target": "cicd-pipeline.md: etapa 2, pruebas con TDD en CI antes de integrar" },
+    { "id": "NFR8.4", "status": "OK", "target": "cicd-pipeline.md: etapa 1, Black y Ruff y revision de codigo" }
+  ]
+}

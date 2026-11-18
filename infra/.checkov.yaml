@@ -1,0 +1,49 @@
+# Checkov (version fijada en ci.yml). Se ejecuta solo en CI; nunca se instala en local en u6.
+# Cada omision se documenta una a una: es una decision de diseno aprobada, no un olvido.
+# La lista se escribio sin poder ejecutar Checkov en la etapa de Code Generation: si la primera
+# ejecucion en CI marca algo mas, se evalua caso por caso y se agrega aqui con su motivo.
+framework:
+  - terraform
+directory:
+  - infra
+quiet: true
+compact: true
+skip-check:
+  # --- Lambda: sin VPC, sin cola, sin firma, sin KMS propio, sin trazas (MVP de 5 personas) ---
+  - CKV_AWS_117 # Lambda fuera de una VPC a proposito: sin red propia (infrastructure-specification.md)
+  - CKV_AWS_116 # Sin cola de mensajes fallidos: la invocacion es sincrona desde la pasarela
+  - CKV_AWS_272 # Sin firma de codigo: el codigo sale de este repositorio por la canalizacion
+  - CKV_AWS_173 # Variables de entorno cifradas con la clave administrada por AWS, sin clave KMS propia
+  - CKV_AWS_50 # Sin X-Ray: monitoring-design.md no lleva rastreo distribuido
+  # --- Registros: 14 dias y sin clave KMS propia (NFR4.2) ---
+  - CKV_AWS_338 # Retencion de 14 dias (NFR4.2), no de un ano
+  - CKV_AWS_158 # Grupo de registros con cifrado por defecto de CloudWatch, sin clave KMS propia
+  # --- API Gateway: sin registro de acceso (NFR4.2), sin WAF ni cache en el MVP; autenticacion en el servicio (C3) ---
+  - CKV_AWS_76 # Sin registro de acceso de la pasarela (NFR4.2)
+  - CKV_AWS_73 # Sin X-Ray en la pasarela
+  - CKV_AWS_120 # Sin cache de la pasarela: no hay respuestas reutilizables
+  - CKV_AWS_59 # La credencial de sesion la verifica el servicio (C3), no la pasarela
+  - CKV2_AWS_29 # Sin WAF: el limite de uso de la pasarela acota el abuso con 5 personas (NFR3.1)
+  - CKV2_AWS_51 # Sin certificado de cliente en la etapa
+  - CKV2_AWS_4 # Sin nivel de registro de la etapa: no hay registro de acceso ni de ejecucion
+  - CKV2_AWS_77 # Sin WAF
+  # --- CloudFront: certificado por defecto, sin registro de acceso (NFR4.2), sin WAF ni conmutacion ---
+  - CKV_AWS_86 # Sin registro de acceso de la distribucion (NFR4.2)
+  - CKV_AWS_68 # Sin WAF en la distribucion
+  - CKV_AWS_310 # Sin origen de respaldo: un solo deposito
+  - CKV_AWS_374 # Sin restriccion geografica: uso desde cualquier pais
+  - CKV2_AWS_42 # Certificado por defecto de CloudFront (sin dominio propio en el MVP)
+  - CKV2_AWS_47 # Sin WAF en la distribucion
+  # --- S3: sin registro de acceso (NFR4.2), sin replicacion ni claves KMS propias ---
+  - CKV_AWS_18 # Sin registro de acceso del deposito (NFR4.2)
+  - CKV_AWS_144 # Sin replicacion entre regiones
+  - CKV_AWS_145 # Cifrado con la clave administrada por S3 (SSE-S3), sin clave KMS propia
+  - CKV2_AWS_62 # Sin notificaciones de eventos del deposito
+  - CKV2_AWS_61 # Sin ciclo de vida: el deposito versionado se limpia fuera del MVP
+  # --- IAM del arranque: acciones de lectura y listado sin recurso concreto; el resto de las
+  # comprobaciones de IAM se dejan activas (si alguna marca algo, se decide con la persona) ---
+  - CKV_AWS_355 # Resource "*" solo en acciones de lectura o listado sin recurso (rol de plan y servicios sin ARN)
+  - CKV_AWS_289 # El rol de aplicacion administra roles solo con prefijo y limite de permisos (NFR5.4)
+  - CKV_AWS_290 # Escritura sin restricciones: se acota por prefijo, condicion de limite y denegaciones
+  - CKV_AWS_49 # Resource "*" en acciones de lectura del rol de plan
+  - CKV_AWS_356 # Resource "*" en acciones de lectura o listado

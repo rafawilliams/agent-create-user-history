@@ -1,0 +1,27 @@
+{
+  "stage": "code-generation",
+  "unit": "u2-model-gateway",
+  "version": 1,
+  "writes": [
+    { "path": "backend/.env.example" },
+    { "path": "backend/story_service/bedrock_client.py" },
+    { "path": "backend/story_service/config.py" },
+    { "path": "backend/story_service/error_translation.py" },
+    { "path": "backend/story_service/evaluate_models.py" },
+    { "path": "backend/story_service/evaluation.py" },
+    { "path": "backend/story_service/handler.py" },
+    { "path": "backend/story_service/local_run.py" },
+    { "path": "backend/story_service/model_profile.py" },
+    { "path": "backend/story_service/models.py" },
+    { "path": "backend/story_service/ports.py" },
+    { "path": "backend/tests/test_bedrock_client.py" },
+    { "path": "backend/tests/test_composition.py" },
+    { "path": "backend/tests/test_error_translation.py" },
+    { "path": "backend/tests/test_evaluate_models.py" },
+    { "path": "backend/tests/test_evaluation.py" },
+    { "path": "backend/tests/test_model_profile.py" },
+    { "path": "backend/tests/test_models_errors.py" },
+    { "path": "docs/titulos-evaluacion.md" },
+    { "path": "infra/variables.tf" }
+  ]
+}

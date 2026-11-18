@@ -1,0 +1,29 @@
+[project]
+name = "story-service"
+version = "0.1.0"
+description = "Servicio de generacion de historias de usuario (u1-walking-skeleton)"
+requires-python = ">=3.11"
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["story_service"]
+branch = false
+
+[tool.coverage.report]
+# Piso del proyecto (team.md, mvp): no se baja para que una ejecucion pase.
+fail_under = 80
+show_missing = true

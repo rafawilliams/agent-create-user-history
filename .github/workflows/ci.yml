@@ -1,0 +1,203 @@
+name: ci
+
+# Etapas 1 a 4 de cicd-pipeline.md (u1-walking-skeleton), los pasos de la pantalla de u5-web-app
+# (formato, análisis, compilación, cobertura, presupuesto, auditoría, secretos y scripts en línea) y
+# las comprobaciones de infraestructura de u6-infrastructure (fmt, validate, terraform test,
+# scripts de verificación, acciones fijadas por hash, secretos, Checkov y plan de solo lectura).
+# El despliegue y la prueba de humo van en deploy.yml, que solo corre en main.
+#
+# Toda acción `uses:` va fijada a un hash de commit de 40 caracteres con la versión comentada
+# (NFR5.7); infra/scripts/check_pins.py lo comprueba en el trabajo `infra`.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    name: Servicio (estilo, pruebas y cobertura)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r backend/requirements-dev.txt
+      - name: Etapa 1 - Black y Ruff
+        run: |
+          python -m black --check backend
+          python -m ruff check backend
+      - name: Etapa 2 - pruebas con cobertura minima de 80 %
+        run: python -m pytest backend/tests -q --cov=backend/story_service --cov-report=term-missing --cov-fail-under=80
+
+  web:
+    name: Pantalla (estilo, pruebas y cobertura)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - name: Etapa 1 - formato, analisis y tipos
+        run: |
+          npm run format:check
+          npm run lint
+      - name: Etapa 1 - tipos y compilacion (valores ficticios y publicos de las variables VITE_)
+        # En los pull requests Terraform no se aplica: la compilacion usa valores ficticios.
+        # La validacion de configuracion de la pantalla falla por variables ausentes, no por estos valores.
+        env:
+          VITE_API_URL: https://example.invalid
+          VITE_COGNITO_REGION: us-east-1
+          VITE_COGNITO_USER_POOL_ID: us-east-1_example
+          VITE_COGNITO_DOMAIN: example.auth.us-east-1.amazoncognito.com
+          VITE_COGNITO_CLIENT_ID: example-client-id
+        run: npm run build
+      - name: Etapa 2 - pruebas con cobertura minima de 80 %
+        run: npm run coverage
+      - name: Etapa 2 - presupuesto de 400 KB y vista previa diferida
+        run: npm run check:bundle
+      - name: Etapa 2 - auditoria de dependencias de produccion
+        run: npm audit --omit=dev --audit-level=high
+      - name: Etapa 2 - secretos en el paquete
+        run: npm run check:secrets
+      - name: Etapa 2 - scripts en linea
+        run: npm run check:inline
+
+  infra-scripts:
+    name: Scripts de infraestructura (estilo, pruebas y cobertura)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/scripts
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements-ci.txt
+      - name: Black y Ruff
+        run: |
+          python -m black --check .
+          python -m ruff check .
+      - name: Pruebas con cobertura minima de 80 %
+        run: python -m pytest -q --cov=. --cov-report=term-missing --cov-fail-under=80
+
+  infra:
+    name: Infraestructura (fmt, validate, pruebas, fijado de acciones, secretos y Checkov)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - name: Construir el paquete de la funcion (codigo y dependencias para Lambda; ver infra/README.md)
+        run: |
+          python -m pip install -r infra/scripts/requirements-ci.txt
+          python infra/scripts/build_lambda_package.py
+          python -m pytest infra/scripts/test_real_package.py -q
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+        with:
+          # NFR5.7: Terraform 1.11 o superior (required_version); esta es la version probada.
+          terraform_version: 1.16.3
+          terraform_wrapper: false
+      - name: Etapa 3 - terraform fmt
+        run: terraform fmt -check -recursive infra
+      - name: Etapa 3 - terraform init, validate y terraform test (infra/)
+        working-directory: infra
+        run: |
+          terraform init -backend=false -input=false
+          terraform validate
+          terraform test
+      - name: Etapa 3 - terraform init, validate y terraform test (infra/bootstrap/)
+        working-directory: infra/bootstrap
+        run: |
+          terraform init -backend=false -input=false
+          terraform validate
+          terraform test
+      - name: Etapa 3 - acciones fijadas por hash y archivos de bloqueo (NFR5.7)
+        run: |
+          python3 infra/scripts/check_pins.py .github/workflows \
+            --require-file infra/.terraform.lock.hcl \
+            --require-file infra/bootstrap/.terraform.lock.hcl
+      - name: Etapa 3 - patrones de claves y secretos (NFR5.1)
+        run: python3 infra/scripts/check_secrets.py infra .github
+      - name: Etapa 3 - Checkov (version fijada; omisiones documentadas en infra/.checkov.yaml)
+        run: |
+          python3 -m pip install 'checkov==3.4.5'
+          checkov --config-file infra/.checkov.yaml
+
+  infra-plan:
+    name: Infraestructura (plan contra estado vacio)
+    # Solo solicitudes del propio repositorio y con el rol de plan configurado: las solicitudes de
+    # forks no reciben identidad ni secretos (NFR5.3). El token OIDC lleva sub ...:pull_request.
+    # El rol de plan solo permite sts:GetCallerIdentity: con `-backend=false` el plan parte de un estado
+    # vacio, no refresca recursos y no lee Cognito ni Lambda (esas lecturas devuelven secretos).
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && vars.AWS_PLAN_ROLE_ARN != '' }}
+    needs: infra
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      # Valores ficticios: el plan de las solicitudes nunca recibe los secretos reales (NFR5.3).
+      TF_VAR_allowed_emails: ci-dummy@example.com
+      TF_VAR_google_client_id: ci-dummy-google-client-id
+      TF_VAR_google_client_secret: ci-dummy-google-client-secret
+      TF_VAR_microsoft_client_id: ci-dummy-microsoft-client-id
+      TF_VAR_microsoft_client_secret: ci-dummy-microsoft-client-secret
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - name: Construir el paquete de la funcion (el plan lee infra/build/package)
+        run: python infra/scripts/build_lambda_package.py
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+        with:
+          terraform_version: 1.16.3
+          terraform_wrapper: false
+      - uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4.3.1
+        with:
+          role-to-assume: ${{ vars.AWS_PLAN_ROLE_ARN }}
+          aws-region: us-east-1
+      - name: Etapa 3 - terraform plan (estado vacio, sirve para check_plan y no detecta eliminaciones)
+        working-directory: infra
+        run: |
+          terraform init -backend=false -input=false
+          terraform plan -input=false -lock=false -no-color -out=tfplan > /dev/null
+          terraform show -json tfplan > plan.json
+      - name: Etapa 3 - check_plan.py sobre el plan (solo estructura, nunca valores)
+        run: python3 infra/scripts/check_plan.py infra/plan.json
+      - name: Etapa 3 - borrar el plan de la maquina
+        if: ${{ always() }}
+        run: rm -f infra/tfplan infra/plan.json
+
+  security:
+    name: Verificaciones de seguridad del diseno
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r backend/requirements-dev.txt
+      - name: Etapa 4 - (a) verificador simulado y (b) registros sin contenido
+        run: python -m pytest backend/tests/test_composition.py backend/tests/test_logging.py -q
+      - name: Etapa 4 - (c) el plan no define ALLOW_SIMULATED_SESSION ni activa el registro de invocaciones
+        run: |
+          if grep -RnE '^[[:space:]]*"?ALLOW_SIMULATED_SESSION"?[[:space:]]*=' infra --include='*.tf'; then
+            echo "infra define ALLOW_SIMULATED_SESSION (NFR5.2)"; exit 1
+          fi
+          if grep -RnE 'resource[[:space:]]+"aws_bedrock_model_invocation_logging_configuration"' infra --include='*.tf'; then
+            echo "infra activa el registro de invocaciones del modelo (NFR4.2)"; exit 1
+          fi

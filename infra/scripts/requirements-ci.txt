@@ -1,0 +1,5 @@
+# Herramientas de los scripts de infraestructura, con versiones exactas (las que se ejecutaron en local).
+pytest==9.0.2
+pytest-cov==6.3.0
+black==26.10.1
+ruff==0.17.5

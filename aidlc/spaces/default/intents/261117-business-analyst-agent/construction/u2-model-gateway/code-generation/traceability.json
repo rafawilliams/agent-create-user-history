@@ -1,0 +1,30 @@
+{
+  "stage": "code-generation",
+  "unit": "u2-model-gateway",
+  "upstream_ids": ["AC5.1.1", "AC5.1.2", "AC5.1.3", "AC5.1.4", "AC7.1.1", "AC7.1.2", "AC7.1.3", "NFR4.1", "NFR4.2", "NFR4.3", "NFR5.1", "NFR5.2", "NFR5.3", "BR2.1", "BR2.2", "BR2.3", "BR2.4", "BR2.5", "BR2.6", "BR2.7", "BR2.8", "BR2.10", "BR2.9"],
+  "coverage": [
+    { "id": "AC5.1.1", "status": "N/A", "target": "delivered by u5-web-app (indicador de carga y boton bloqueado en pantalla)" },
+    { "id": "AC5.1.2", "status": "OK", "target": "backend/story_service/error_translation.py" },
+    { "id": "AC5.1.3", "status": "N/A", "target": "delivered by u3-story-generator (interpretar la respuesta); u2 no interpreta el contenido" },
+    { "id": "AC5.1.4", "status": "OK", "target": "backend/story_service/bedrock_client.py" },
+    { "id": "AC7.1.1", "status": "OK", "target": "backend/story_service/evaluation.py" },
+    { "id": "AC7.1.2", "status": "Deferred", "target": "El registro docs/evaluacion-modelos.md lo escribe el comando de evaluacion real (backend/story_service/evaluate_models.py, probado con modelos simulados); se genera cuando la persona aprueba los 5 titulos y ejecuta la evaluacion con credenciales de AWS" },
+    { "id": "AC7.1.3", "status": "OK", "target": "backend/tests/test_evaluation.py" },
+    { "id": "NFR4.1", "status": "OK", "target": "backend/tests/test_evaluate_models.py" },
+    { "id": "NFR4.2", "status": "OK", "target": "backend/tests/test_error_translation.py" },
+    { "id": "NFR4.3", "status": "OK", "target": "backend/tests/test_evaluate_models.py" },
+    { "id": "NFR5.1", "status": "OK", "target": "backend/story_service/bedrock_client.py" },
+    { "id": "NFR5.2", "status": "OK", "target": "infra/variables.tf" },
+    { "id": "NFR5.3", "status": "OK", "target": "backend/story_service/model_profile.py" },
+    { "id": "BR2.1", "status": "OK", "target": "backend/story_service/config.py" },
+    { "id": "BR2.2", "status": "OK", "target": "backend/tests/test_model_profile.py" },
+    { "id": "BR2.3", "status": "OK", "target": "backend/story_service/error_translation.py" },
+    { "id": "BR2.4", "status": "OK", "target": "backend/tests/test_error_translation.py" },
+    { "id": "BR2.5", "status": "OK", "target": "backend/tests/test_bedrock_client.py" },
+    { "id": "BR2.6", "status": "OK", "target": "backend/story_service/bedrock_client.py" },
+    { "id": "BR2.7", "status": "OK", "target": "backend/story_service/models.py" },
+    { "id": "BR2.8", "status": "OK", "target": "backend/story_service/evaluation.py" },
+    { "id": "BR2.9", "status": "OK", "target": "backend/story_service/evaluate_models.py" },
+    { "id": "BR2.10", "status": "OK", "target": "backend/tests/test_evaluation.py" }
+  ]
+}

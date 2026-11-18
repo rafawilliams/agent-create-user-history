@@ -1,0 +1,22 @@
+{
+  "stage": "nfr-design",
+  "unit": "u5-web-app",
+  "upstream_ids": ["NFR1.1", "NFR1.2", "NFR1.3", "NFR3.1", "NFR7.1", "NFR7.2", "NFR4.1", "NFR4.2", "NFR4.3", "NFR4.4", "NFR5.5", "NFR5.1", "NFR5.2", "NFR5.3", "NFR5.4"],
+  "coverage": [
+    { "id": "NFR1.1", "status": "OK", "target": "performance-design.md: temporizador de 60 s con AbortController, sin reintentos automaticos" },
+    { "id": "NFR1.2", "status": "OK", "target": "performance-design.md: estado generating fijado de forma sincrona y un solo envio" },
+    { "id": "NFR1.3", "status": "OK", "target": "performance-design.md: carga diferida de la vista previa y medicion con check:bundle" },
+    { "id": "NFR3.1", "status": "OK", "target": "performance-design.md: sin sondeos, solo las solicitudes enumeradas" },
+    { "id": "NFR7.1", "status": "OK", "target": "performance-design.md: tema con minHeight y minWidth de 44 px; el desbordamiento se revisa a mano" },
+    { "id": "NFR7.2", "status": "OK", "target": "performance-design.md: browserslist de Chrome y Edge" },
+    { "id": "NFR4.1", "status": "OK", "target": "security-design.md: almacen de usuario en memoria y estado solo en la redireccion" },
+    { "id": "NFR4.2", "status": "OK", "target": "security-design.md: sin datos en la consola y errores traducidos" },
+    { "id": "NFR4.3", "status": "OK", "target": "security-design.md: react-markdown con skipHtml, esquemas permitidos e imagenes como texto" },
+    { "id": "NFR4.4", "status": "OK", "target": "security-design.md y logical-components.md: copia temporal con ciclo de vida de borrado" },
+    { "id": "NFR5.5", "status": "OK", "target": "security-design.md: metadatos explicitos, removeUser y cierre de Cognito con logout_uri exacto" },
+    { "id": "NFR5.1", "status": "OK", "target": "security-design.md: cliente publico y solo variables publicas" },
+    { "id": "NFR5.2", "status": "OK", "target": "security-design.md: PKCE S256, validacion de state y limpieza de la direccion" },
+    { "id": "NFR5.3", "status": "OK", "target": "security-design.md: npm ci, versiones exactas y npm audit bloqueante" },
+    { "id": "NFR5.4", "status": "OK", "target": "security-design.md: la cabecera la sirve u6; u5 prueba que el paquete no usa scripts en linea" }
+  ]
+}

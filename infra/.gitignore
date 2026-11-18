@@ -1,0 +1,23 @@
+.terraform/
+# Paquete de la funcion Lambda (build_lambda_package.py) y su zip
+build/
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+plan.json
+
+# NFR5.1: ningun valor real en el repositorio (secretos y correos permitidos).
+*.tfvars
+*.tfvars.json
+!*.tftest.hcl
+
+# Estado local del arranque (infra/bootstrap): lo respalda la persona fuera del repositorio.
+bootstrap/terraform.tfstate*
+bootstrap/.terraform/
+
+# Python (scripts de verificacion)
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.coverage

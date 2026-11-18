@@ -1,0 +1,28 @@
+## Review
+
+**Verdict:** READY
+**Reviewer:** aidlc-architecture-reviewer-agent
+**Date:** 2026-11-17T15:15:06Z
+**Iteration:** 1
+**Verdict Dictated:** no
+
+### Findings
+
+| ID | Severity | Location | Finding | Required action | Status |
+|---|---|---|---|---|---|
+| R-01 | Major | aidlc/spaces/default/intents/261117-business-analyst-agent/construction/u2-model-gateway/infrastructure-design/cicd-pipeline.md > "Qué agrega u2 a las etapas del flujo de CI" fila 4 y "Assumptions & Open Questions"; traceability.json > coverage NFR5.1 | NFR5.1 (búsqueda de patrones de claves de AWS) figura como OK, pero el propio documento admite como supuesto que la etapa de seguridad de u1 "incluye (o u6 le agrega)" esa búsqueda. Además, `security-design.md` de u2 nombra como dueña a la etapa de CI de u6, mientras este documento la atribuye a la etapa de u1, y la tabla de entregas a u6 no la lista. El requisito queda sin dueño verificable. | Añadir la búsqueda de claves a la tabla "Qué entrega u2 a u6" con dueño explícito y criterio de verificación, o confirmar contra el flujo de CI de u1 que ya existe y citarlo; unificar la atribución con `security-design.md`; marcar NFR5.1 como OK solo cuando el mecanismo esté confirmado. | New |
+| R-02 | Major | aidlc/spaces/default/intents/261117-business-analyst-agent/construction/u2-model-gateway/infrastructure-design/cicd-pipeline.md > "Infraestructura propia de u2" y "Qué entrega u2 a u6" | Se declara que u2 no aporta monitoreo y que solo emite cuatro campos de registro, pero no se entrega a nadie la forma de consumirlos. Sin un filtro de métrica o alarma sobre `kind`/`reason` (por ejemplo `access_not_enabled`, `model_not_found`, `unknown`), un modelo bloqueado o un identificador inválido en producción solo se ve leyendo registros. Tampoco se registra que la exención de SLO del MVP y la métrica de salud y de tasa de error por componente quedan a cargo del servicio. | Agregar a la tabla de entregas una fila de observabilidad: qué campos de registro debe convertir el servicio o u6 en una métrica de tasa de error por `reason` (con dueño), y dejar escrito que el MVP no define SLO y quién cubre la métrica de salud de este componente. | New |
+| R-03 | Minor | aidlc/spaces/default/intents/261117-business-analyst-agent/construction/u2-model-gateway/infrastructure-design/cicd-pipeline.md > fila "Identificador no válido" | Un identificador mal escrito solo se detecta tras el despliegue, con la prueba de humo. Una validación (`validation` con el mismo patrón por proveedor) en la variable de Terraform, ejecutada en la etapa 3 de CI, lo detendría antes de aplicar. Hoy el diseño no la menciona ni la descarta. | Evaluar y registrar si la variable de Terraform lleva una validación del patrón; si se descarta, explicar por qué (duplica el patrón del código). | New |
+| R-04 | Minor | aidlc/spaces/default/intents/261117-business-analyst-agent/construction/u2-model-gateway/infrastructure-design/cicd-pipeline.md > "Qué entrega u2 a u6" | La entrega de configuración es incompleta: no menciona la región, los tiempos de conexión y de lectura (5 s y 50 s) ni que el tiempo máximo de la función Lambda (y del API) debe superar el plazo de 50 s más la tolerancia de 1 s. Tampoco dice que la verificación de registro de invocaciones exige un permiso de lectura de esa configuración para el rol de la prueba de humo. NFR1.2 queda N/A, pero la restricción de infraestructura que impone sí existe. | Añadir una fila de configuración (variables de entorno, región, tiempos) y la restricción sobre el tiempo máximo de la función; indicar el permiso que necesita la prueba de humo para consultar el registro de invocaciones. | New |
+| R-05 | Minor | aidlc/spaces/default/intents/261117-business-analyst-agent/construction/u2-model-gateway/infrastructure-design/cicd-pipeline.md > "Estrategia de despliegue y retroceso" y fila "Forma del permiso" | El retroceso por alias revierte la función, pero el permiso de IAM (que no se versiona) conserva el modelo nuevo; no se dice que eso es aceptable. Tampoco hay una nota de riesgo del permiso (comodín de región sobre el modelo base) como pide la guía de operación para cambios de IAM. | Añadir una frase de riesgo residual del permiso y de que el retroceso deja el permiso ampliado, con el criterio de limpieza posterior. | New |
+| R-06 | Minor | aidlc/spaces/default/intents/261117-business-analyst-agent/construction/u2-model-gateway/infrastructure-design/traceability.json > upstream_ids | El documento cita NFR8.2 y NFR8.3 (cobertura informada aparte, Black y Ruff), pero `upstream_ids` no los lista. NFR1.2 está como N/A aunque la tabla de pruebas de la etapa 2 no incluye la prueba de los valores por defecto de 50 s que exige tech-stack-decisions. | Incluir NFR8.2 y NFR8.3 en la cobertura y agregar a la etapa 2 la prueba del valor por defecto de 50 s, o justificar con más precisión el N/A de NFR1.2. | New |
+
+### Validation Tool Results
+
+| Tool | Result | Interpretation |
+|---|---|---|
+| (ninguna herramienta de validación definida para esta etapa) | No ejecutada | La revisión es de lectura cruzada contra `security-design.md`, `logical-components.md`, `security-requirements.md` y `tech-stack-decisions.md`. |
+
+### Summary
+
+Que u2 no tenga infraestructura propia es correcto para una biblioteca, y es consistente con nfr-design (fuente única de la variable, permiso sobre perfil de inferencia, registro de invocaciones desactivado, evaluación fuera de CI, documento sin código). Las debilidades están en el traspaso a u6: la búsqueda de claves queda sin dueño confirmado y los campos de registro no llegan a ninguna métrica, además de varios huecos menores de configuración y riesgo. Hay 2 Major y 4 Minor, por lo que el veredicto es READY.

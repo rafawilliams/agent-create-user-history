@@ -1,0 +1,22 @@
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["check_plan", "check_pins", "check_secrets"]
+
+[tool.coverage.run]
+source = ["."]
+omit = ["test_*.py"]
+
+[tool.coverage.report]
+# Piso del proyecto (team.md, mvp): no se baja para que una ejecucion pase.
+fail_under = 80
+show_missing = true

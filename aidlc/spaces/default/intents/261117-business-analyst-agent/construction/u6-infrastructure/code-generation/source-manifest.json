@@ -1,0 +1,133 @@
+{
+  "stage": "code-generation",
+  "unit": "u6-infrastructure",
+  "version": 1,
+  "writes": [
+    {
+      "path": ".github/workflows/ci.yml"
+    },
+    {
+      "path": ".github/workflows/deploy.yml"
+    },
+    {
+      "path": "infra/.checkov.yaml"
+    },
+    {
+      "path": "infra/.gitignore"
+    },
+    {
+      "path": "infra/.terraform.lock.hcl"
+    },
+    {
+      "path": "infra/README.md"
+    },
+    {
+      "path": "infra/api_session.tf"
+    },
+    {
+      "path": "infra/cognito.tf"
+    },
+    {
+      "path": "infra/iam.tf"
+    },
+    {
+      "path": "infra/main.tf"
+    },
+    {
+      "path": "infra/outputs.tf"
+    },
+    {
+      "path": "infra/variables.tf"
+    },
+    {
+      "path": "infra/versions.tf"
+    },
+    {
+      "path": "infra/web_headers.tf"
+    },
+    {
+      "path": "infra/bootstrap/.terraform.lock.hcl"
+    },
+    {
+      "path": "infra/bootstrap/main.tf"
+    },
+    {
+      "path": "infra/bootstrap/outputs.tf"
+    },
+    {
+      "path": "infra/bootstrap/variables.tf"
+    },
+    {
+      "path": "infra/bootstrap/versions.tf"
+    },
+    {
+      "path": "infra/bootstrap/tests/roles.tftest.hcl"
+    },
+    {
+      "path": "infra/bootstrap/tests/state_bucket.tftest.hcl"
+    },
+    {
+      "path": "infra/bootstrap/tests/variables.tftest.hcl"
+    },
+    {
+      "path": "infra/tests/api.tftest.hcl"
+    },
+    {
+      "path": "infra/tests/app.tftest.hcl"
+    },
+    {
+      "path": "infra/tests/variables.tftest.hcl"
+    },
+    {
+      "path": "infra/scripts/check_pins.py"
+    },
+    {
+      "path": "infra/scripts/check_plan.py"
+    },
+    {
+      "path": "infra/scripts/check_secrets.py"
+    },
+    {
+      "path": "infra/scripts/pyproject.toml"
+    },
+    {
+      "path": "infra/scripts/pytest.ini"
+    },
+    {
+      "path": "infra/scripts/smoke_test.sh"
+    },
+    {
+      "path": "infra/scripts/test_check_pins.py"
+    },
+    {
+      "path": "infra/scripts/test_check_plan.py"
+    },
+    {
+      "path": "infra/scripts/test_check_secrets.py"
+    },
+    {
+      "path": "infra/scripts/test_smoke_test.py"
+    },
+    {
+      "path": "infra/scripts/build_lambda_package.py"
+    },
+    {
+      "path": "infra/scripts/test_build_lambda_package.py"
+    },
+    {
+      "path": "infra/scripts/test_real_package.py"
+    },
+    {
+      "path": "infra/tests/package.tftest.hcl"
+    },
+    {
+      "path": "infra/scripts/requirements-ci.txt"
+    },
+    {
+      "path": "infra/scripts/test_workflows.py"
+    },
+    {
+      "path": "infra/lambda-requirements.lock.txt"
+    }
+  ]
+}

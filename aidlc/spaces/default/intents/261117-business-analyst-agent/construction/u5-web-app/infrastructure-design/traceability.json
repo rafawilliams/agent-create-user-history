@@ -1,0 +1,23 @@
+{
+  "stage": "infrastructure-design",
+  "unit": "u5-web-app",
+  "upstream_ids": ["NFR1.1", "NFR1.3", "NFR3.1", "NFR7.1", "NFR7.2", "NFR1.2", "NFR4.1", "NFR4.4", "NFR5.1", "NFR5.5", "NFR5.2", "NFR4.2", "NFR4.3", "NFR5.4", "NFR5.3", "NFR8.1"],
+  "coverage": [
+    { "id": "NFR1.1", "status": "N/A", "target": "El corte de 60 s es del codigo de la pantalla (performance-design.md); la infraestructura solo lo respeta con la pasarela ampliada de u1" },
+    { "id": "NFR1.3", "status": "OK", "target": "cicd-pipeline.md: check:bundle en cada integracion; infrastructure-specification.md: cache de archivos con hash" },
+    { "id": "NFR3.1", "status": "OK", "target": "infrastructure-specification.md: sitio estatico sin servidor propio" },
+    { "id": "NFR7.1", "status": "N/A", "target": "Es una propiedad del tema y del diseno de la pantalla (performance-design.md), sin recurso de infraestructura" },
+    { "id": "NFR7.2", "status": "N/A", "target": "Es una propiedad de la compilacion de la pantalla (browserslist en performance-design.md), sin recurso de infraestructura" },
+    { "id": "NFR1.2", "status": "N/A", "target": "Es una propiedad del estado de la pantalla (performance-design.md), sin recurso de infraestructura" },
+    { "id": "NFR4.1", "status": "OK", "target": "infrastructure-specification.md: el deposito solo guarda archivos estaticos, sin datos de personas ni token" },
+    { "id": "NFR4.4", "status": "N/A", "target": "La copia temporal vive en el navegador (security-design.md), sin recurso de infraestructura" },
+    { "id": "NFR5.1", "status": "OK", "target": "cicd-pipeline.md: busqueda de secretos en web/dist y variables VITE_ publicas" },
+    { "id": "NFR5.5", "status": "OK", "target": "infrastructure-specification.md: direcciones de retorno y de cierre exactas del cliente publico de Cognito" },
+    { "id": "NFR5.2", "status": "OK", "target": "infrastructure-specification.md: direccion de retorno exacta y cliente sin secreto" },
+    { "id": "NFR4.2", "status": "OK", "target": "monitoring-design.md y infrastructure-specification.md: sin registros de acceso ni telemetria de la pantalla" },
+    { "id": "NFR4.3", "status": "N/A", "target": "La vista previa segura es del codigo de la pantalla (security-design.md); la politica de contenido la refuerza en infrastructure-specification.md" },
+    { "id": "NFR5.4", "status": "OK", "target": "infrastructure-specification.md: politica de cabeceras de respuesta con la politica de contenido exacta" },
+    { "id": "NFR5.3", "status": "OK", "target": "cicd-pipeline.md: npm ci y npm audit bloqueante" },
+    { "id": "NFR8.1", "status": "OK", "target": "cicd-pipeline.md: npm run coverage con umbral de 80 %" }
+  ]
+}
