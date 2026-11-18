@@ -128,6 +128,14 @@ resource "aws_api_gateway_rest_api" "api" {
   }
 }
 
+# Validador de solicitudes (CKV2_AWS_53): valida los parametros; el cuerpo lo valida el servicio.
+resource "aws_api_gateway_request_validator" "params" {
+  rest_api_id                 = aws_api_gateway_rest_api.api.id
+  name                        = "${var.name_prefix}-params"
+  validate_request_parameters = true
+  validate_request_body       = false
+}
+
 resource "aws_api_gateway_resource" "v1" {
   rest_api_id = aws_api_gateway_rest_api.api.id
   parent_id   = aws_api_gateway_rest_api.api.root_resource_id
@@ -146,6 +154,8 @@ resource "aws_api_gateway_method" "post" {
   resource_id   = aws_api_gateway_resource.stories.id
   http_method   = "POST"
   authorization = "NONE"
+
+  request_validator_id = aws_api_gateway_request_validator.params.id
 }
 
 resource "aws_api_gateway_integration" "post" {
@@ -174,6 +184,8 @@ resource "aws_api_gateway_method" "options" {
   resource_id   = each.value
   http_method   = "OPTIONS"
   authorization = "NONE"
+
+  request_validator_id = aws_api_gateway_request_validator.params.id
 }
 
 resource "aws_api_gateway_integration" "options" {

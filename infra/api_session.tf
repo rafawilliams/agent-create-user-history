@@ -15,6 +15,8 @@ resource "aws_api_gateway_method" "session" {
   resource_id   = aws_api_gateway_resource.session.id
   http_method   = each.key
   authorization = "NONE"
+
+  request_validator_id = aws_api_gateway_request_validator.params.id
 }
 
 resource "aws_api_gateway_integration" "session" {
