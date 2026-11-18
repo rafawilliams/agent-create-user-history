@@ -1,0 +1,21 @@
+{
+  "stage": "infrastructure-design",
+  "unit": "u6-infrastructure",
+  "upstream_ids": ["NFR5.1", "NFR5.9", "NFR1.1", "NFR3.1", "NFR4.1", "NFR4.3", "NFR4.2", "NFR5.6", "NFR5.4", "NFR5.2", "NFR5.3", "NFR5.5", "NFR5.8", "NFR5.7"],
+  "coverage": [
+    { "id": "NFR5.1", "status": "OK", "target": "infrastructure-specification.md: variables sensibles y cicd-pipeline.md: secretos y variables de GitHub" },
+    { "id": "NFR5.9", "status": "OK", "target": "infrastructure-specification.md: pasarela con CORS y respuestas de error, y distribucion con politica de cabeceras" },
+    { "id": "NFR1.1", "status": "OK", "target": "infrastructure-specification.md: funcion de 57 s e integracion de 58 s; la cuota de la cuenta se verifica en el arranque manual (cicd-pipeline.md)" },
+    { "id": "NFR3.1", "status": "OK", "target": "infrastructure-specification.md: limite de uso y concurrencia reservada de 5 (con -1 como alternativa); la cuota se verifica en el arranque manual (cicd-pipeline.md)" },
+    { "id": "NFR4.1", "status": "OK", "target": "infrastructure-specification.md: fila de almacenamiento de datos, solo los depositos de la pantalla y de estado" },
+    { "id": "NFR4.3", "status": "OK", "target": "infrastructure-specification.md: variable allowed_emails sensible con validacion" },
+    { "id": "NFR4.2", "status": "OK", "target": "monitoring-design.md: sin registro de invocaciones ni de acceso y retencion de 14 dias" },
+    { "id": "NFR5.6", "status": "OK", "target": "infrastructure-specification.md: estado remoto y cicd-pipeline.md: arranque manual" },
+    { "id": "NFR5.4", "status": "OK", "target": "infrastructure-specification.md: roles con prefijo de la aplicacion y limite de permisos en la raiz de arranque" },
+    { "id": "NFR5.2", "status": "OK", "target": "cicd-pipeline.md: identidad federada de GitHub para plan y aplicacion" },
+    { "id": "NFR5.3", "status": "OK", "target": "cicd-pipeline.md: plan solo para solicitudes del propio repositorio con valores ficticios" },
+    { "id": "NFR5.5", "status": "OK", "target": "infrastructure-specification.md: rol de ejecucion de la funcion con permiso minimo de Bedrock" },
+    { "id": "NFR5.8", "status": "OK", "target": "infrastructure-specification.md: Cognito con los criterios de u4" },
+    { "id": "NFR5.7", "status": "OK", "target": "cicd-pipeline.md: acciones fijadas, proteccion de main y flujos ci.yml y deploy.yml" }
+  ]
+}

@@ -1,0 +1,22 @@
+# Dependencias de EJECUCION de la funcion Lambda (python3.12, Linux x86_64), con versiones y hashes
+# exactos. build_lambda_package.py las instala con --no-deps --require-hashes, asi que el paquete no
+# depende de lo que PyPI publique despues. Solo contiene lo que story_service importa y el runtime
+# NO trae: PyJWT[crypto] (jwt, cryptography, cffi, pycparser).
+#
+# boto3 y botocore NO se incluyen a proposito: el runtime python3.12 de Lambda ya los trae y
+# backend/requirements.txt pide boto3>=1.34,<2 (build_lambda_package.RUNTIME_PROVIDED).
+#
+# Como regenerarlo (acceso a PyPI, sin AWS): subir las versiones de abajo, descargar con
+#   python -m pip download --no-deps --only-binary=:all: --platform manylinux2014_x86_64 \
+#     --platform manylinux_2_17_x86_64 --platform manylinux_2_28_x86_64 --python-version 3.12 \
+#     --implementation cp -d <carpeta> -r <pins.txt>
+# y calcular el sha256 de cada rueda descargada. test_build_lambda_package.py comprueba que este
+# archivo cubra backend/requirements.txt y que cada linea lleve == y --hash.
+PyJWT==2.10.1 \
+    --hash=sha256:dcdd193e30abefd5debf142f9adfcdd2b58004e644f25406ffaebd50bd98dacb
+cffi==2.1.1 \
+    --hash=sha256:c1453022f490d2459a11819d83ad1d586e9ff65a12ac3e705ffebd46d3685dcf
+cryptography==50.0.2 \
+    --hash=sha256:630ebfea3bf689d075f82316324ff7433dc447fe6bc1bfc76524b74b4a9567d2
+pycparser==3.12 \
+    --hash=sha256:a076f3f489b39b43ed13563a1dafe42447445bec2e294154ec5c57fcdda4c85e

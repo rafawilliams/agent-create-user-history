@@ -1,0 +1,28 @@
+{
+  "stage": "functional-design",
+  "unit": "u3-story-generator",
+  "upstream_ids": ["AC1.1.1", "AC1.1.2", "AC1.1.3", "AC1.1.4", "AC2.1.1", "AC2.1.2", "AC2.1.3", "AC2.1.4", "AC3.1.1", "AC3.1.2", "AC4.1.1", "AC4.1.2", "AC4.1.3", "AC4.1.4", "AC5.1.1", "AC5.1.2", "AC5.1.3", "AC5.1.4"],
+  "coverage": [
+    { "id": "AC1.1.1", "status": "OK", "target": "BR3.1" },
+    { "id": "AC1.1.2", "status": "OK", "target": "BR3.1" },
+    { "id": "AC1.1.3", "status": "OK", "target": "BR3.1" },
+    { "id": "AC1.1.4", "status": "OK", "target": "BR3.2, BR3.3" },
+    { "id": "AC2.1.1", "status": "OK", "target": "BR3.5, BR3.6" },
+    { "id": "AC2.1.2", "status": "OK", "target": "BR3.5" },
+    { "id": "AC2.1.3", "status": "OK", "target": "BR3.6, BR3.7" },
+    { "id": "AC2.1.4", "status": "OK", "target": "BR3.4, BR3.7 (formato garantizado por construccion; respuesta totalmente en ingles rechazada; texto mezclado, revision manual)" },
+    { "id": "AC3.1.1", "status": "OK", "target": "BR3.9" },
+    { "id": "AC3.1.2", "status": "Deferred", "target": "Revision manual con el conjunto de titulos de prueba de NFR2 (Build and Test); u3 aporta el formato por construccion, BR3.9" },
+    { "id": "AC4.1.1", "status": "N/A", "target": "delivered by u5-web-app (pestañas Vista previa y Markdown)" },
+    { "id": "AC4.1.2", "status": "N/A", "target": "delivered by u5-web-app (boton Copiar Markdown)" },
+    { "id": "AC4.1.3", "status": "OK", "target": "BR3.9" },
+    { "id": "AC4.1.4", "status": "OK", "target": "BR3.8" },
+    { "id": "AC5.1.1", "status": "N/A", "target": "delivered by u5-web-app (indicador de carga y boton desactivado)" },
+    { "id": "AC5.1.2", "status": "OK", "target": "BR3.10" },
+    { "id": "AC5.1.3", "status": "OK", "target": "BR3.6" },
+    { "id": "AC5.1.4", "status": "OK", "target": "BR3.10" }
+  ],
+  "reverse": [
+    { "id": "BR3.7", "status": "N/A", "target": "FR2.4: el idioma lo piden las instrucciones y se revisa a mano" }
+  ]
+}

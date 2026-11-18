@@ -1,0 +1,15 @@
+{
+  "stage": "nfr-requirements",
+  "unit": "u4-access-control",
+  "upstream_ids": ["NFR1", "NFR2", "NFR3", "NFR4", "NFR5", "NFR6", "NFR7", "NFR8"],
+  "coverage": [
+    { "id": "NFR1", "status": "OK", "target": "NFR1.1, NFR1.2, NFR1.3, NFR1.4, NFR1.5, NFR1.6, NFR1.7, NFR1.8, NFR1.9" },
+    { "id": "NFR2", "status": "N/A", "target": "La calidad del Gherkin es de la generacion (u3-story-generator); u4 no genera contenido" },
+    { "id": "NFR3", "status": "OK", "target": "NFR3.1, NFR3.2, NFR3.3, NFR3.4" },
+    { "id": "NFR4", "status": "OK", "target": "NFR4.1, NFR4.2, NFR4.3, NFR4.4, NFR4.5, NFR4.6, NFR4.7" },
+    { "id": "NFR5", "status": "OK", "target": "NFR5.5 (secretos); ademas NFR5.1, NFR5.2, NFR5.3, NFR5.4, NFR5.6, NFR5.7 como requisitos nuevos de autenticacion con origen FR6.1" },
+    { "id": "NFR6", "status": "N/A", "target": "u4 no tiene interfaz; la accesibilidad de la pantalla de acceso es de u5-web-app" },
+    { "id": "NFR7", "status": "N/A", "target": "u4 no tiene interfaz; los dispositivos son de u5-web-app" },
+    { "id": "NFR8", "status": "OK", "target": "NFR8.1, NFR8.2, NFR8.3, NFR8.4" }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "stage": "infrastructure-design",
+  "unit": "u1-walking-skeleton",
+  "upstream_ids": [
+    "NFR1.1", "NFR1.2", "NFR1.6", "NFR1.3", "NFR1.4", "NFR4.1", "NFR1.5", "NFR5.2", "NFR4.2",
+    "NFR4.3", "NFR4.4", "NFR5.1", "NFR3.2", "NFR3.1", "NFR3.3", "NFR4.5", "NFR8.1", "NFR8.4"
+  ],
+  "coverage": [
+    { "id": "NFR1.1", "status": "OK", "target": "infrastructure-specification.md: cadena de tiempos servicio 55 s < funcion 57 s < pasarela 58 s < interfaz 60 s; la cuota de la pasarela es un supuesto con alternativa; la ruta de exito se prueba en local" },
+    { "id": "NFR1.2", "status": "OK", "target": "infrastructure-specification.md: tiempo de ejecucion de la funcion de 57 s sobre el plazo de 55 s del servicio" },
+    { "id": "NFR1.6", "status": "N/A", "target": "El reintento unico es logica del servicio; no requiere recurso de infraestructura" },
+    { "id": "NFR1.3", "status": "OK", "target": "infrastructure-specification.md y cicd-pipeline.md: medicion manual unica en local con el modelo real; en AWS desplegado solo tras el verificador real de u4" },
+    { "id": "NFR1.4", "status": "OK", "target": "monitoring-design.md: metrica generation_duration_ms en CloudWatch" },
+    { "id": "NFR4.1", "status": "OK", "target": "infrastructure-specification.md: sin almacen de datos; solo el deposito de archivos estaticos de la pantalla" },
+    { "id": "NFR1.5", "status": "N/A", "target": "El codigo de error GENERATION_TIMEOUT es logica del servicio; la infraestructura solo aporta el tiempo de espera" },
+    { "id": "NFR5.2", "status": "OK", "target": "infrastructure-specification.md y cicd-pipeline.md: APP_ENV=prod sin ALLOW_SIMULATED_SESSION, comprobado en el plan y en la prueba de humo" },
+    { "id": "NFR4.2", "status": "OK", "target": "infrastructure-specification.md: registro de invocaciones de Bedrock desactivado, verificado en la etapa 4 del pipeline" },
+    { "id": "NFR4.3", "status": "OK", "target": "monitoring-design.md y cicd-pipeline.md: registros sin contenido ni Authorization, prueba automatica" },
+    { "id": "NFR4.4", "status": "N/A", "target": "El tratamiento del titulo es logica del servicio; no requiere recurso de infraestructura" },
+    { "id": "NFR5.1", "status": "OK", "target": "infrastructure-specification.md: rol de ejecucion con permiso minimo; cicd-pipeline.md: federacion de identidad sin claves guardadas" },
+    { "id": "NFR3.2", "status": "OK", "target": "infrastructure-specification.md: limite de uso global en la pasarela; limite por persona diferido a u4-access-control (desviacion registrada en nfr-design)" },
+    { "id": "NFR3.1", "status": "OK", "target": "infrastructure-specification.md: limite de uso de la pasarela (rafaga 5, 1 por segundo) produce el 429; concurrencia reservada de 5 solo como respaldo de costo, sujeta a la cuota de la cuenta" },
+    { "id": "NFR3.3", "status": "OK", "target": "monitoring-design.md: metrica requests_total y metricas de la pasarela" },
+    { "id": "NFR4.5", "status": "OK", "target": "monitoring-design.md: metrica errors_total por codigo" },
+    { "id": "NFR8.1", "status": "OK", "target": "cicd-pipeline.md: etapa 2 de pruebas antes de integrar, revision de codigo" },
+    { "id": "NFR8.4", "status": "OK", "target": "cicd-pipeline.md: revision de codigo y linters" }
+  ]
+}

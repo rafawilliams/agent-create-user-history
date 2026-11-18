@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 from anthropic import Anthropic
 
 COLUMNA_TITULO = "Titulo"
-MODELO = "claude-sonnet-4-6"
+MODELO = "claude-sonnet-5-5"
 
 PROMPT_SISTEMA = (
     "Eres un analista de negocio experto en redactar historias de usuario "

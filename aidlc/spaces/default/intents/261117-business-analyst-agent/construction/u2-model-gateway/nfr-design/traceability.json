@@ -1,0 +1,22 @@
+{
+  "stage": "nfr-design",
+  "unit": "u2-model-gateway",
+  "upstream_ids": ["NFR4.1", "NFR4.2", "NFR4.3", "NFR5.1", "NFR5.2", "NFR5.3", "NFR1.1", "NFR1.2", "NFR1.3", "NFR1.4", "NFR2.1", "NFR8.1", "NFR8.2", "NFR8.3", "NFR8.4"],
+  "coverage": [
+    { "id": "NFR4.1", "status": "OK", "target": "security-design.md: sin persistencia en el acceso; el comando de evaluacion solo escribe docs/evaluacion-modelos.md" },
+    { "id": "NFR4.2", "status": "OK", "target": "security-design.md: tabla fija de errores, ModelError nuevo sin encadenar la excepcion, registradores del SDK en advertencia, prueba con ARN en el texto" },
+    { "id": "NFR4.3", "status": "OK", "target": "security-design.md: archivo de titulos con exactamente 5 titulos y huella SHA-256 de aprobacion" },
+    { "id": "NFR5.1", "status": "OK", "target": "security-design.md: cadena de credenciales estandar; comprobacion de patrones de claves en la etapa de CI de u6-infrastructure" },
+    { "id": "NFR5.2", "status": "OK", "target": "security-design.md: una sola fuente para permiso y configuracion, permiso sobre perfil de inferencia y modelo base, registro de invocaciones desactivado; verifica u6-infrastructure" },
+    { "id": "NFR5.3", "status": "OK", "target": "security-design.md: patron exacto de identificadores, rechazo antes de cualquier llamada a AWS" },
+    { "id": "NFR1.1", "status": "OK", "target": "logical-components.md: espera acotada sobre un hilo con tiempo pedido mas 1 s de tolerancia" },
+    { "id": "NFR1.2", "status": "OK", "target": "logical-components.md: tiempo de lectura de 50 s y de conexion de 5 s en el cliente; valores por defecto de 50 s en el selector de perfil" },
+    { "id": "NFR1.3", "status": "OK", "target": "logical-components.md: el comando de evaluacion mide cada llamada con un reloj monotono" },
+    { "id": "NFR1.4", "status": "OK", "target": "logical-components.md: cliente de AWS con cero reintentos propios y un solo intento por llamada" },
+    { "id": "NFR2.1", "status": "OK", "target": "logical-components.md: puntuacion por modelo calculada por el comando de evaluacion" },
+    { "id": "NFR8.1", "status": "N/A", "target": "No es un patron de diseno: lo verifica Code Generation con pruebas primero" },
+    { "id": "NFR8.2", "status": "N/A", "target": "No es un patron de diseno: lo verifica Build and Test con el umbral de cobertura en CI" },
+    { "id": "NFR8.3", "status": "N/A", "target": "No es un patron de diseno: lo verifican Black y Ruff en CI" },
+    { "id": "NFR8.4", "status": "N/A", "target": "No es un patron de diseno: lo verifica la revision de codigo" }
+  ]
+}

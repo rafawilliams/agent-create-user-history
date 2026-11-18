@@ -1,0 +1,21 @@
+{
+  "stage": "nfr-design",
+  "unit": "u6-infrastructure",
+  "upstream_ids": ["NFR5.1", "NFR5.2", "NFR5.7", "NFR5.3", "NFR5.4", "NFR5.5", "NFR4.2", "NFR5.6", "NFR5.8", "NFR5.9", "NFR4.1", "NFR4.3", "NFR3.1", "NFR1.1"],
+  "coverage": [
+    { "id": "NFR5.1", "status": "OK", "target": "security-design.md: secretos y datos de las personas, variables sensibles y comprobacion de patrones" },
+    { "id": "NFR5.2", "status": "OK", "target": "security-design.md: identidades de la canalizacion, OIDC con sub y aud exactos" },
+    { "id": "NFR5.7", "status": "OK", "target": "security-design.md: canalizacion, versiones fijadas, acciones por hash y proteccion de main" },
+    { "id": "NFR5.3", "status": "OK", "target": "security-design.md: rol de plan de solo lectura, forks excluidos y riesgo aceptado declarado" },
+    { "id": "NFR5.4", "status": "OK", "target": "security-design.md: limite de permisos, prefijo de roles y denegaciones explicitas" },
+    { "id": "NFR5.5", "status": "OK", "target": "security-design.md: permisos de la funcion sobre el perfil de inferencia y el modelo base" },
+    { "id": "NFR4.2", "status": "OK", "target": "security-design.md: retencion de 14 dias y sin registros de invocacion ni de acceso" },
+    { "id": "NFR5.6", "status": "OK", "target": "security-design.md: estado remoto con bloqueo nativo y estado local del arranque respaldado" },
+    { "id": "NFR5.8", "status": "OK", "target": "security-design.md: Cognito y hospedaje, un recurso por cada afirmacion" },
+    { "id": "NFR5.9", "status": "OK", "target": "security-design.md: politica de cabeceras, CORS y respuestas de error de la pasarela" },
+    { "id": "NFR4.1", "status": "OK", "target": "security-design.md: lista de tipos de recurso permitidos y solo dos depositos" },
+    { "id": "NFR4.3", "status": "OK", "target": "security-design.md: lista de correos como dato personal con validacion" },
+    { "id": "NFR3.1", "status": "OK", "target": "security-design.md: limite de uso de la pasarela y concurrencia reservada" },
+    { "id": "NFR1.1", "status": "OK", "target": "security-design.md: tiempos de 55, 57 y 58 segundos" }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "stage": "nfr-design",
+  "unit": "u1-walking-skeleton",
+  "upstream_ids": [
+    "NFR1.1",
+    "NFR1.2",
+    "NFR1.3",
+    "NFR1.4",
+    "NFR1.5",
+    "NFR1.6",
+    "NFR5.2",
+    "NFR4.1",
+    "NFR4.2",
+    "NFR4.3",
+    "NFR4.4",
+    "NFR5.1",
+    "NFR3.2",
+    "NFR3.1",
+    "NFR3.3"
+  ],
+  "coverage": [
+    { "id": "NFR1.1", "status": "OK", "target": "performance-design.md: plazo absoluto de 55 s, corte del modelo a 50 s" },
+    { "id": "NFR1.2", "status": "OK", "target": "performance-design.md: tiempo de espera del modelo = min(50 s, tiempo restante)" },
+    { "id": "NFR1.3", "status": "OK", "target": "performance-design.md: medicion de extremo a extremo con ejecucion real" },
+    { "id": "NFR1.4", "status": "OK", "target": "observability-design.md: metrica generation_duration_ms" },
+    { "id": "NFR1.5", "status": "OK", "target": "performance-design.md y reliability-design.md: GENERATION_TIMEOUT 504 con tabla de errores" },
+    { "id": "NFR1.6", "status": "OK", "target": "performance-design.md: un solo reintento si queda tiempo" },
+    { "id": "NFR5.2", "status": "OK", "target": "security-design.md: verificador simulado solo con APP_ENV local/test y ALLOW_SIMULATED_SESSION, falla cerrado" },
+    { "id": "NFR4.1", "status": "OK", "target": "security-design.md: sin almacen de datos, solo memoria de la solicitud" },
+    { "id": "NFR4.2", "status": "OK", "target": "security-design.md y observability-design.md: lista cerrada de campos de registro, registro de invocaciones desactivado" },
+    { "id": "NFR4.3", "status": "OK", "target": "security-design.md y observability-design.md: sin Authorization ni contenido en registros, prueba automatica" },
+    { "id": "NFR4.4", "status": "OK", "target": "security-design.md: validacion de longitud y delimitador fijo para el titulo" },
+    { "id": "NFR5.1", "status": "OK", "target": "security-design.md: rol de ejecucion con permiso minimo, sin claves en el codigo" },
+    { "id": "NFR3.2", "status": "OK", "target": "scalability-design.md: DESVIACION DELIBERADA registrada (ND Q1), limite por persona traspasado a u4-access-control; en el esqueleto solo limite de tasa global en la pasarela" },
+    { "id": "NFR3.1", "status": "OK", "target": "scalability-design.md: concurrencia maxima de 5, exceso rechazado con RATE_LIMITED" },
+    { "id": "NFR3.3", "status": "OK", "target": "scalability-design.md y observability-design.md: contador requests_total" }
+  ]
+}

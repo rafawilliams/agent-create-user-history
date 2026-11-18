@@ -1,0 +1,30 @@
+{
+  "stage": "code-generation",
+  "unit": "u4-access-control",
+  "version": 1,
+  "writes": [
+    { "path": "backend/.env.example" },
+    { "path": "backend/requirements.txt" },
+    { "path": "backend/story_service/account_allowlist.py" },
+    { "path": "backend/story_service/auth_config.py" },
+    { "path": "backend/story_service/config.py" },
+    { "path": "backend/story_service/errors.py" },
+    { "path": "backend/story_service/handler.py" },
+    { "path": "backend/story_service/jwks_store.py" },
+    { "path": "backend/story_service/logging_utils.py" },
+    { "path": "backend/story_service/models.py" },
+    { "path": "backend/story_service/ports.py" },
+    { "path": "backend/story_service/service.py" },
+    { "path": "backend/story_service/token_verifier.py" },
+    { "path": "backend/tests/auth_helpers.py" },
+    { "path": "backend/tests/test_access_control.py" },
+    { "path": "backend/tests/test_account_allowlist.py" },
+    { "path": "backend/tests/test_auth_config.py" },
+    { "path": "backend/tests/test_handler.py" },
+    { "path": "backend/tests/test_jwks_store.py" },
+    { "path": "backend/tests/test_logging.py" },
+    { "path": "backend/tests/test_models_errors.py" },
+    { "path": "backend/tests/test_service.py" },
+    { "path": "backend/tests/test_token_verifier.py" }
+  ]
+}

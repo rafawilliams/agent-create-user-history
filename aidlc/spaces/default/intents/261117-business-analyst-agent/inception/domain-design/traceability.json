@@ -1,0 +1,21 @@
+{
+  "stage": "domain-design",
+  "upstream_ids": [
+    "US1.1",
+    "US2.1",
+    "US3.1",
+    "US4.1",
+    "US5.1",
+    "US6.1",
+    "US7.1"
+  ],
+  "coverage": [
+    { "id": "US1.1", "status": "OK", "target": "StoryGenerator, WebApp" },
+    { "id": "US2.1", "status": "OK", "target": "StoryGenerator" },
+    { "id": "US3.1", "status": "OK", "target": "StoryGenerator" },
+    { "id": "US4.1", "status": "OK", "target": "WebApp, StoryGenerator" },
+    { "id": "US5.1", "status": "OK", "target": "WebApp, StoryGenerator, ModelGateway" },
+    { "id": "US6.1", "status": "OK", "target": "AccessControl, WebApp" },
+    { "id": "US7.1", "status": "OK", "target": "ModelGateway" }
+  ]
+}

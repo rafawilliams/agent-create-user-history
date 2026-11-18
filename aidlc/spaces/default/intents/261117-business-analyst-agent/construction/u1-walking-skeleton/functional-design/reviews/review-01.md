@@ -1,0 +1,28 @@
+## Review
+
+**Verdict:** NOT-READY
+**Reviewer:** aidlc-architecture-reviewer-agent
+**Date:** 2026-11-17T05:57:27Z
+**Iteration:** 1
+**Verdict Dictated:** no
+
+### Findings
+
+| ID | Severity | Location | Finding | Required action | Status |
+|---|---|---|---|---|---|
+| R-01 | Major | aidlc/spaces/default/intents/261117-business-analyst-agent/construction/u1-walking-skeleton/functional-design/rules.md > BR1.5; functional-spec.md > "Dónde corre sin sesión" | La concesión de sesión simulada está documentada, pero no está acotada. BR1.5 solo dice "se retira cuando u4 agrega la verificación real". Ninguna regla impide que el verificador simulado quede conectado en un despliegue real de U6, y el esqueleto llama al Bedrock real, así que cualquier cliente con la URL generaría contenido sin credencial. El spec dice que "la pantalla no envía credencial real", pero C1 exige bearer. Un paso en el que no se verifica la autenticación debe estar limitado a lo local y a las pruebas. | Añadir una regla o restricción en BR1.5 y en el spec: el verificador simulado solo se enlaza en configuración local o de pruebas, no es desplegable en un entorno compartido, y el servicio falla cerrado (SESSION_INVALID) si no hay un verificador explícitamente configurado. Declarar la condición de retiro (u4 integrado) como criterio verificable. | New |
+| R-02 | Major | aidlc/spaces/default/intents/261117-business-analyst-agent/construction/u1-walking-skeleton/functional-design/entities.md > entidad Session y ausencia de SessionInvalid | U1 entrega la interfaz C3 (SessionVerifier) a las demás unidades, pero entities.md solo define Session.sessionId. C3 define el resultado Session con sessionId, accountId, provider, expiresAt y la variante SessionInvalid con reason. Sin esa forma, u4 y u3 construyen contra una interfaz que U1 no especifica, y el modelo simulado de sesión no se puede implementar sin adivinar. El texto dice que otras unidades agregan accountId, provider y expiresAt, lo que contradice que U1 fije la interfaz. | Definir en entities.md la forma completa del resultado de verifySession según C3 (Session con los cuatro campos y SessionInvalid con reason, más la entrada credential), o declarar que U1 entrega la interfaz exactamente como C3 y listar esos campos. Indicar qué devuelve el verificador simulado para cada campo. | New |
+| R-03 | Major | aidlc/spaces/default/intents/261117-business-analyst-agent/construction/u1-walking-skeleton/functional-design/rules.md > BR1.4; functional-spec.md > W3, W4 | Falta la correspondencia de cada kind de ModelError con el código de error y el valor de retryable. BR1.4 solo fija "retryable verdadero para fallos transitorios". No dice qué pasa con timeout, unavailable y access_denied. C1 define un código propio GENERATION_TIMEOUT (504, retryable true) para el tiempo agotado, pero W3 manda todos los kinds, incluido timeout, a MODEL_FAILURE. Tampoco se fija el retryable de INVALID_MODEL_RESPONSE, ni qué muestra la pantalla en W4. Un desarrollador debe adivinar. | Añadir una tabla kind a código, retryable y estado HTTP (alineada con C1, incluido el caso timeout a GENERATION_TIMEOUT o la decisión explícita de diferirlo a U3). Fijar retryable de INVALID_MODEL_RESPONSE y el mensaje que muestra la pantalla en W4. | New |
+| R-04 | Minor | aidlc/spaces/default/intents/261117-business-analyst-agent/construction/u1-walking-skeleton/functional-design/functional-spec.md > "Diagrama de entidades" | El diagrama derivado muestra la relación ModelResponse }o--\|\| StoryResult, pero entities.md declara `relationships: []` para ModelResponse, y la relación solo aparece como StoryResult a StoryRequest. El diagrama no coincide con la fuente de verdad, y la cardinalidad no corresponde a una conversión. | Alinear: quitar la relación ModelResponse a StoryResult del diagrama o declararla en entities.md con su cardinalidad y dirección. | New |
+| R-05 | Minor | aidlc/spaces/default/intents/261117-business-analyst-agent/construction/u1-walking-skeleton/functional-design/traceability.json > coverage AC2.1.3 a BR1.6 | AC2.1.3 está marcado OK, pero BR1.6 solo pide al modelo 2 a 3 criterios en español y el propio spec dice que no lo comprueba. El criterio es una afirmación sobre el resultado; la cobertura es parcial. Lo mismo, en menor grado, aplica a AC2.1.1 con BR1.2 (comprobación manual). | Registrar AC2.1.3 como cobertura parcial con la nota de que la verificación llega con u3-story-generator, o cambiar el estado según la convención del proyecto. | New |
+| R-06 | Minor | aidlc/spaces/default/intents/261117-business-analyst-agent/construction/u1-walking-skeleton/functional-design/rules.md > BR1.1 | La comprobación "empieza con" no define el tratamiento de espacios o saltos de línea iniciales, ni mayúsculas. Un modelo que antepone un salto de línea haría fallar W1 de forma inesperada. | Fijar si se recortan los espacios iniciales antes de comparar y si la comparación distingue mayúsculas. | New |
+
+### Validation Tool Results
+
+| Tool | Result | Interpretation |
+|---|---|---|
+| (ninguna herramienta listada) | No ejecutada | Revisión manual de entities.md, rules.md y traceability.json. Los bloques yaml tienen la estructura esperada; los BR1.1 a BR1.6 coinciden entre rules.md y el resumen del spec; traceability.json lista AC2.1.1 a AC2.1.4 y cada OK apunta a una BR existente. |
+
+### Summary
+
+Los artefactos son coherentes y están bien estructurados, pero hay tres huecos que un desarrollador no puede resolver sin adivinar: la concesión de sesión simulada no está acotada a lo local, la interfaz C3 que entrega U1 no está especificada en entities.md, y falta la correspondencia de fallos del modelo con códigos y retryable (con un conflicto con GENERATION_TIMEOUT de C1).
